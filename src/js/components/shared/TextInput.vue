@@ -1,6 +1,7 @@
 <template lang="pug">
   .up-input
-    label.up-input_label {{ label }}{{ required ? '*' : '' }}
+    label.up-input_label {{ label }}
+      span(v-if="required") *
     input.up-input_field(:type="type")
 </template>
 

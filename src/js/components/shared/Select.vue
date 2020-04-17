@@ -1,6 +1,7 @@
 <template lang="pug">
   .up-select
-    label.up-select_label {{ label }}{{ required ? '*' : '' }}
+    label.up-select_label {{ label }}
+      span(v-if="required") *
     v-select(
       class="up-select_options"
       :options="options"
