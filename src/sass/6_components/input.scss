@@ -1,0 +1,24 @@
+.up-input {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &_label {
+    font-size: 18px;
+    color: #535353;
+    margin-bottom: 10px;
+  }
+
+  &_field {
+    background: #f4f4f4;
+    color: #535353;
+    padding: 0 10px;
+    border-radius: 2px;
+    font-size: 18px;
+    border: none;
+    height: 36px;
+  }
+}

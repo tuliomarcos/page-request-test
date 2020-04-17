@@ -1,0 +1,45 @@
+.up-select {
+  display: flex;
+  flex-direction: column;
+  
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &_label {
+    font-size: 18px;
+    color: #535353;
+    margin-bottom: 10px;
+  }
+
+  &_options {
+    width: 100%;
+
+    .vs__actions {
+      cursor: pointer;
+    }
+
+    .vs__dropdown-option {
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &--highlight {
+        background-color: $orange;
+      }
+    }
+
+    .vs__dropdown-toggle {
+      background: #f4f4f4;
+      padding: 0 10px;
+      border-radius: 2px;
+      font-size: 18px;
+      border: none;
+      min-height: 37px;
+
+      .vs__search {
+        color: #535353;
+        margin: 0;
+      }
+    }
+  }
+}
