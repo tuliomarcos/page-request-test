@@ -8,10 +8,10 @@
         .up-banner_cover--image
     main.up-container
       section
-        h1.up-title {{ infoPage.infoPage.title }}
-        p.up-description {{ infoPage.infoPage.description }}
+        h1.up-title {{ infoPage.title }}
+        p.up-description {{ infoPage.description }}
         ul.up-list
-          li(v-for="feat in infoPage.infoPage.features" class="up-list_item")
+          li(v-for="feat in infoPage.features" class="up-list_item")
             span.up-list_item--icon 
             p {{ feat }}
       aside.up-form
@@ -45,18 +45,14 @@
     data: () => ({
     }),
     computed: {
-      ...mapState(['infoPage']),
+      ...mapState('infoPage', ['infoPage']),
       options: () => OptionsSelect.options(),
     },
     methods: {
-      ...mapActions(['initTexts']),
-      lero() {
-        console.log(this.options.cargo)
-      }
+      ...mapActions('infoPage', ['initTexts']),
     },
     created() {
       this.initTexts()
-      this.lero()
     },
     components: {
       TextInput,

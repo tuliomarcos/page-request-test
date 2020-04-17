@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as infoPage from './modules/infoPage'
+import * as infoPage from './modules/info-page'
 
 Vue.use(Vuex);
 

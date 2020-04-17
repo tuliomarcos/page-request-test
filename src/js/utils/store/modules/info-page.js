@@ -1,7 +1,7 @@
 import * as InfoPageService from '../../services/InfoPageService'
 import * as Select from '../../options/OptionsSelect'
 
-// export const namespaced = true
+export const namespaced = true
 
 export const state = {
 	infoPage: {},
