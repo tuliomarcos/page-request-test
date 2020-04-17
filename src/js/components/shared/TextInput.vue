@@ -15,6 +15,7 @@
         p.up-text--error(v-if="error.type === 'required'") Este Campo é obrigatório!
         p.up-text--error(v-if="error.type === 'minLength'") {{ `É necessário no mínimo ${error.min} caracteres` }}
         p.up-text--error(v-if="error.type === 'email'") Preencha o email corretamente
+        p.up-text--error(v-if="error.type === 'validateSum'") A resposta está errada
 </template>
 
 <script>

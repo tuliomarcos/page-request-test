@@ -89,7 +89,6 @@
               :errors="getFieldErrors($v, 'question')" 
               :required="true"
               @blur="validation"
-              @input="validation"
             )
           .up-form_footer
             button.up-btn.up-btn--primary Solicitar Teste
@@ -104,7 +103,12 @@
   import Select from '../shared/Select'
   import * as OptionsSelect from '../../utils/options/OptionsSelect'
   import { mapState, mapActions } from 'vuex'
-  import { required, minLength, email } from 'vuelidate/lib/validators'
+  import { required, minLength, email, helpers } from 'vuelidate/lib/validators'
+
+  const validateSum = helpers.withParams(
+    { type: 'validateSum' },
+    sum => 4 + 10 === Number(sum)
+  )
 
   export default {
     data: () => ({
@@ -140,9 +144,6 @@
         }
         alert('Formulário enviado com sucesso !!')
       },
-      lero() {
-        console.log('emitiu o evento de close')
-      }
     },
     validations: {
       name: {
@@ -161,7 +162,10 @@
         required,
         minLength: minLength(4)
       },
-      question: { required },
+      question: { 
+        required,
+        validateSum, 
+      },
       segment: { required },
       role: { required },
       help: { required }
