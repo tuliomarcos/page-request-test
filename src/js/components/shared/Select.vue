@@ -6,8 +6,12 @@
       class="up-select_options"
       :options="options"
       :placeholder="placeholder"
-      @input="changeValue"
+      :class="hasErrors ? 'up-input_field--error' : ''"
+      @input="emitInput(fieldName)"
     )
+    div(v-if="hasErrors")
+      div(v-for="(error, key) in errors" :key="key")
+        p.up-text--error(v-show="error.type === 'required'") Este Campo é obrigatório!
 </template>
 
 <script>
@@ -30,12 +34,21 @@
       required: {
         type: Boolean,
         default: false
-      }
+      },
+      fieldName: {
+        type: String,
+        required: true,
+      },
+      hasErrors: Boolean,
+      errors: Array,
     },
     methods: {
       changeValue(event) {
         this.$emit('input', event)
-      }
+      },
+      emitInput(fieldName) {
+        this.$emit('input', event.target.value, fieldName)
+      },
     },
     components: {
       vSelect,

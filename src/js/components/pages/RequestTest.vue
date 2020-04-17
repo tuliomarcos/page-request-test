@@ -8,27 +8,91 @@
         .up-banner_cover--image
     main.up-container
       section
-        h1.up-title {{ infoPage.title }}
+        h1.up-text--title {{ infoPage.title }}
         p.up-description {{ infoPage.description }}
         ul.up-list
           li(v-for="feat in infoPage.features" class="up-list_item")
             span.up-list_item--icon 
             p {{ feat }}
-      aside.up-form
-        .up-form_header
-          h1.up-form_header--title Quero solicitar um teste
-          h2.up-form_header--subtitle Preencha seus dados abaixo entraremos em contato em breve.
-        .up-form_body
-          TextInput(label="Nome" :required="true")
-          TextInput(label="Email" :required="true")
-          TextInput(label="Telefone" :required="true")
-          TextInput(label="Empresa" :required="true")
-          Select(label="Cargo" :options="options.cargo" :required="true" placeholder="Selecione")
-          Select(label="Segmento da empresa" :options="options.segmento" :required="true" placeholder="Selecione")
-          Select(label="Como nossa plataforma pode ajudar sua empresa?" :options="options.ajuda" :required="true" placeholder="Selecione")
-          TextInput(label="4 + 10 = ?" :required="true")
-        .up-form_footer
-          button.up-btn.up-btn--primary Solicitar Teste
+      aside
+        form.up-form(@submit.prevent="submit")
+          .up-form_header
+            h1.up-form_header--title Quero solicitar um teste
+            h2.up-form_header--subtitle Preencha seus dados abaixo entraremos em contato em breve.
+          .up-form_body
+            TextInput(
+              label="Nome" 
+              fieldName="name"
+              :hasErrors="$v.name.$error"
+              :errors="getFieldErrors($v, 'name')" 
+              :required="true"
+              @blur="validation"
+            )
+            TextInput(
+              label="Email"
+              fieldName="email"
+              :hasErrors="$v.email.$error"
+              :errors="getFieldErrors($v, 'email')" 
+              :required="true"
+              @blur="validation"
+            )
+            TextInput(
+              label="Telefone"
+              fieldName="phone"
+              :hasErrors="$v.phone.$error"
+              :errors="getFieldErrors($v, 'phone')" 
+              :required="true"
+              @blur="validation"
+            )
+            TextInput(
+              label="Empresa"
+              fieldName="company"
+              :hasErrors="$v.company.$error"
+              :errors="getFieldErrors($v, 'company')" 
+              :required="true"
+              @blur="validation"
+            )
+            Select(
+              label="Cargo"
+              :options="options.cargo"
+              :required="true" 
+              placeholder="Selecione"
+              fieldName="role"
+              :hasErrors="$v.role.$error"
+              :errors="getFieldErrors($v, 'role')" 
+              @input="validation"
+            )
+            Select(
+              label="Segmento da empresa" 
+              :options="options.segmento" 
+              :required="true" 
+              placeholder="Selecione"
+              fieldName="segment"
+              :hasErrors="$v.segment.$error"
+              :errors="getFieldErrors($v, 'segment')" 
+              @input="validation"
+            )
+            Select(
+              label="Como nossa plataforma pode ajudar sua empresa?"
+              :options="options.ajuda"
+              :required="true" 
+              placeholder="Selecione"
+              fieldName="help"
+              :hasErrors="$v.help.$error"
+              :errors="getFieldErrors($v, 'help')" 
+              @input="validation"
+            )
+            TextInput(
+              label="4 + 10 = ?" 
+              fieldName="question"
+              :hasErrors="$v.question.$error"
+              :errors="getFieldErrors($v, 'question')" 
+              :required="true"
+              @blur="validation"
+              @input="validation"
+            )
+          .up-form_footer
+            button.up-btn.up-btn--primary Solicitar Teste
 
     footer
       p nós buscamos e organizamos, você decide!
@@ -40,9 +104,18 @@
   import Select from '../shared/Select'
   import * as OptionsSelect from '../../utils/options/OptionsSelect'
   import { mapState, mapActions } from 'vuex'
+  import { required, minLength, email } from 'vuelidate/lib/validators'
 
   export default {
     data: () => ({
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      question: '',
+      role:'',
+      segment:'',
+      help:'',
     }),
     computed: {
       ...mapState('infoPage', ['infoPage']),
@@ -50,6 +123,48 @@
     },
     methods: {
       ...mapActions('infoPage', ['initTexts']),
+      getFieldErrors: (v, fieldName) => {
+        return Object
+          .values(v[fieldName].$params)
+          .filter(error => !v[fieldName][error.type])
+      },
+      validation(event, fieldName) {
+        this[fieldName] = event
+        this.$v[fieldName].$touch()
+      },
+      submit() {
+        this.$v.$touch()
+        if(this.$v.$error) {
+          alert('Não foi possível enviar o formulario, por favor preencha corretamente os campos e tente novamente :)')
+          return
+        }
+        alert('Formulário enviado com sucesso !!')
+      },
+      lero() {
+        console.log('emitiu o evento de close')
+      }
+    },
+    validations: {
+      name: {
+        required,
+        minLength: minLength(4)
+      },
+      email: {
+        required,
+        email,
+      },
+      phone: {
+        required,
+        minLength: minLength(8)
+      },
+      company: {
+        required,
+        minLength: minLength(4)
+      },
+      question: { required },
+      segment: { required },
+      role: { required },
+      help: { required }
     },
     created() {
       this.initTexts()

@@ -20,5 +20,12 @@
     font-size: 18px;
     border: none;
     height: 36px;
+    transition: .8s ease;
+
+    &--error {
+      box-shadow: 0 0 3px 1px #ff00008f;
+      color: red;
+      transition: .8s ease;
+    }
   }
 }

@@ -1,5 +1,14 @@
-.up-title {
-  color: #d1a51f;
-  font-size: 36px;
-  line-height: 140%;
+.up-text {
+  &--title {
+    color: #d1a51f;
+    font-size: 36px;
+    line-height: 140%;
+  }
+
+  &--error {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 7px;
+    color: red;
+  }
 }
