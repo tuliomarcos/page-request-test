@@ -23,6 +23,7 @@
             TextInput(
               label="Nome" 
               fieldName="name"
+              :value="name"
               :hasErrors="$v.name.$error"
               :errors="getFieldErrors($v, 'name')" 
               :required="true"
@@ -31,6 +32,7 @@
             TextInput(
               label="Email"
               fieldName="email"
+              :value="email"
               :hasErrors="$v.email.$error"
               :errors="getFieldErrors($v, 'email')" 
               :required="true"
@@ -50,6 +52,7 @@
             TextInput(
               label="Empresa"
               fieldName="company"
+              :value="company"
               :hasErrors="$v.company.$error"
               :errors="getFieldErrors($v, 'company')" 
               :required="true"
@@ -88,6 +91,7 @@
             TextInput(
               label="4 + 10 = ?" 
               fieldName="question"
+              :value="question"
               :hasErrors="$v.question.$error"
               :errors="getFieldErrors($v, 'question')" 
               :required="true"

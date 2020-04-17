@@ -1,4 +1,4 @@
-import * as InfoPageService from '../../services/InfoPageService'
+import * as InfoPageService from '../../services/InfoPage.service'
 import * as Select from '../../options/OptionsSelect'
 
 export const namespaced = true
