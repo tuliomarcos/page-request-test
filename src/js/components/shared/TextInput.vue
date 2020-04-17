@@ -5,6 +5,8 @@
     input.up-input_field(
       :class="hasErrors ? 'up-input_field--error' : ''"
       :type="type" 
+      :value="value"
+      :maxLength="maxLength"
       @keyup.enter="emitEnter(fieldName)"
       @change="emitChange(fieldName)"
       @input="emitInput(fieldName)"
@@ -37,6 +39,11 @@
         type: Boolean,
         default: false,
       },
+      maxLength: {
+        type: String,
+        default: '',
+      },
+      value: String,
       hasErrors: Boolean,
       errors: Array,
     },

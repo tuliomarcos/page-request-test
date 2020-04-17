@@ -39,10 +39,13 @@
             TextInput(
               label="Telefone"
               fieldName="phone"
+              maxLength="15"
+              :value="phone"
               :hasErrors="$v.phone.$error"
               :errors="getFieldErrors($v, 'phone')" 
               :required="true"
               @blur="validation"
+              @input="maskPhone"
             )
             TextInput(
               label="Empresa"
@@ -135,6 +138,11 @@
       validation(event, fieldName) {
         this[fieldName] = event
         this.$v[fieldName].$touch()
+      },
+      maskPhone(number) {
+        number.replace(/\D/g, '').length === 11
+          ? this.phone = number.replace(/\D/g, '').replace(/^(\d{2})(\d{1})?(\d{4})(\d{4})?/, '($1) $2 $3-$4')
+          : this.phone = number.replace(/^(\d{2})(\d{4})(\d{4})?/, '($1) $2-$3')
       },
       submit() {
         this.$v.$touch()
